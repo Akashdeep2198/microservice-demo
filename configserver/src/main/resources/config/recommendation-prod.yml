@@ -1,0 +1,11 @@
+build:
+  version: "1.0"
+
+recommendation:
+  message: "Welcome to DemoApp recommendation related prod APIs "
+  contactDetails:
+    name: "Pelias Sudhir - Product Owner"
+    email: "pelias@demoapp.com"
+  onCallSupport:
+    - (723) 656-8709
+    - (156) 342-0956

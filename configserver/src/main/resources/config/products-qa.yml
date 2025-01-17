@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+products:
+  message: "Welcome to DemoApp products related QA APIs "
+  contactDetails:
+    name: "Smitha Ray - QA Lead"
+    email: "smitha@demoapp.com"
+  onCallSupport:
+    - (666) 265-3765
+    - (666) 734-8371

@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+recommendation:
+  message: "Welcome to DemoApp recommendation related QA APIs "
+  contactDetails:
+    name: "Cyrano Marita - QA Lead"
+    email: "cyrano@demoapp.com"
+  onCallSupport:
+    - (785) 545-6565
+    - (853) 546-3467
