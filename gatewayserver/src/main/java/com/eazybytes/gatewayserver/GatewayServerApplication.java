@@ -9,28 +9,28 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDateTime;
 
 @SpringBootApplication
-public class GatewayserverApplication {
+public class GatewayServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GatewayserverApplication.class, args);
+		SpringApplication.run(GatewayServerApplication.class, args);
 	}
 
 	@Bean
 	public RouteLocator RouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
 		return routeLocatorBuilder.routes()
 						.route(p -> p
-								.path("/test/products/**")
-								.filters( f -> f.rewritePath("/test/products/(?<segment>.*)","/${segment}")
+								.path("/demo/products/**")
+								.filters( f -> f.rewritePath("/demo/products/(?<segment>.*)","/${segment}")
 										.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 								.uri("lb://PRODUCTS"))
 					.route(p -> p
-							.path("/test/recommendation/**")
-							.filters( f -> f.rewritePath("/test/recommendation/(?<segment>.*)","/${segment}")
+							.path("/demo/recommendation/**")
+							.filters( f -> f.rewritePath("/demo/recommendation/(?<segment>.*)","/${segment}")
 									.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 							.uri("lb://RECOMMENDATION"))
 					.route(p -> p
-							.path("/test/review/**")
-							.filters( f -> f.rewritePath("/test/review/(?<segment>.*)","/${segment}")
+							.path("/demo/review/**")
+							.filters( f -> f.rewritePath("/demo/review/(?<segment>.*)","/${segment}")
 									.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 								.uri("lb://REVIEW")).build();
 	}

@@ -30,7 +30,7 @@ public class ProductController {
     }
 
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Product> createOrUpdateProduct(@RequestBody Product product) {
         log.info("Received request to create or update product: {}", product);
         Product savedProduct = productService.saveOrUpdateProduct(product);
@@ -50,7 +50,8 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @GetMapping
+    @GetMapping("/get-products" +
+            "")
     public ResponseEntity<List<Product>> getAllProducts() {
         log.info("Received request to get all products");
         List<Product> products = productService.getAllProducts();
@@ -86,7 +87,8 @@ public class ProductController {
     }
 
     @GetMapping("/build-info")
-    public ResponseEntity<String> getBuildInfo() {
+    public ResponseEntity<String> getBuildInfo(@RequestHeader("test-correlation-id") String corelationId) {
+        log.info("corelation-id - {}",corelationId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
