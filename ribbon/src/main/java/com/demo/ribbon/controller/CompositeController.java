@@ -57,14 +57,21 @@ public class CompositeController {
 
     @GetMapping("/GetEndpoint")
     public String greeting() {
+        log.info("Invoking /GetEndpoint to retrieve an instance of the 'products' service.");
+
         ServiceInstance instance = loadBalancerClient.choose("products");
         if (instance == null) {
-            log.error("No instances available for service: products");
+            log.error("No instances available for service: 'products'.");
             return "Service unavailable";
         }
-        URI storesUri = URI.create(String.format("http://%s:%s",
-                instance.getHost(),
-                instance.getPort()));
+
+        String host = instance.getHost();
+        int port = instance.getPort();
+        log.info("Found an instance of 'products' service - Host: {}, Port: {}", host, port);
+
+        URI storesUri = URI.create(String.format("http://%s:%s", host, port));
+        log.info("Constructed service URI: {}", storesUri);
+
         return storesUri.toString();
     }
 }
