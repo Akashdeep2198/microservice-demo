@@ -8,18 +8,24 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="gatewayserver" />
+        <module name="review" />
         <module name="ribbon" />
         <module name="recommendation" />
         <module name="configserver" />
-        <module name="review" />
         <module name="products" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="accounts" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="accounts" options="" />
       <module name="configserver" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
+      <module name="gatewayserver" options="-parameters" />
       <module name="products" options="-parameters" />
       <module name="recommendation" options="-parameters" />
       <module name="review" options="-parameters" />

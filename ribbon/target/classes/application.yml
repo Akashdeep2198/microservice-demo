@@ -8,6 +8,10 @@ spring:
     active: "prod"
   config:
     import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: true
 
 management:
   endpoints:
@@ -25,6 +29,19 @@ endpoints:
   shutdown:
     enabled: true
 
+products:
+  ribbon:
+    eureka:
+      enabled: true
+    ServerListRefreshInterval: 1000
+    listOfServers: localhost:8080,localhost:8081
+
+info:
+  app:
+    name: "ribbon"
+    description: "DemoApp Composite Application"
+    version: "1.0.0"
+
 eureka:
   instance:
     preferIpAddress: true
@@ -34,9 +51,3 @@ eureka:
     lease-renewal-interval-in-seconds: 30
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
-
-info:
-  app:
-    name: "ribbon"
-    description: "DemoApp Composite Application"
-    version: "1.0.0"

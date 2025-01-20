@@ -6,9 +6,13 @@ import com.demo.ribbon.dto.ProductDTO;
 import com.demo.ribbon.dto.ProductWithReviewsDTO;
 import com.demo.ribbon.dto.ReviewDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @Slf4j
@@ -16,12 +20,15 @@ import java.util.List;
 @RequestMapping("/api/composite")
 public class CompositeController {
 
+    @LoadBalanced
     private final ProductClient productClient;
     private final ReviewClient reviewClient;
+    private final LoadBalancerClient loadBalancerClient;
 
-    public CompositeController(ProductClient productClient, ReviewClient reviewClient) {
+    public CompositeController(ProductClient productClient, ReviewClient reviewClient, LoadBalancerClient loadBalancerClient) {
         this.productClient = productClient;
         this.reviewClient = reviewClient;
+        this.loadBalancerClient = loadBalancerClient;
     }
 
     @GetMapping("/products/{productId}")
@@ -46,5 +53,18 @@ public class CompositeController {
             log.error("Error fetching product or reviews for ID: {}", productId, e);
             return ResponseEntity.status(500).build();
         }
+    }
+
+    @GetMapping("/GetEndpoint")
+    public String greeting() {
+        ServiceInstance instance = loadBalancerClient.choose("products");
+        if (instance == null) {
+            log.error("No instances available for service: products");
+            return "Service unavailable";
+        }
+        URI storesUri = URI.create(String.format("http://%s:%s",
+                instance.getHost(),
+                instance.getPort()));
+        return storesUri.toString();
     }
 }
