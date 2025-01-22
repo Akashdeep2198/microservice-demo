@@ -1,10 +1,14 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
+
+#// Running this command from products microservice creates a replica of products
+#java -jar .\target\products-0.0.1-SNAPSHOT.jar --server.port=8081
+
 spring:
   application:
     name: "products"
   profiles:
-    active: ""
+    active: "qa"
   datasource:
     url: jdbc:mysql://localhost:3306/product
     driverClassName: com.mysql.cj.jdbc.Driver
